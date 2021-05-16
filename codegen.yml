@@ -1,0 +1,16 @@
+schema: 'https://api.thegraph.com/subgraphs/name/rjkz808/gold-token'
+overwrite: true
+documents: 'src/**/*.graphql'
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      withHooks: true

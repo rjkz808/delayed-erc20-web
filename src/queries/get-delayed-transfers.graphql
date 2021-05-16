@@ -1,0 +1,20 @@
+query GetDelayedTransfers($where: DelayedTransfer_filter!) {
+  delayedTransfers(
+    first: 50
+    where: $where
+    orderBy: createdAt
+    orderDirection: desc
+  ) {
+    id
+    from {
+      id
+    }
+    to {
+      id
+    }
+    amount
+    createdAt
+    unlockTimestamp
+    transactionHash
+  }
+}
