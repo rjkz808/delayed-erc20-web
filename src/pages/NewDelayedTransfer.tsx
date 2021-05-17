@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 
 import Button from '../components/Button';
 import Container from '../components/Container';
+import DelayedTransferSuccess from '../components/DelayedTransferSuccess';
 import FormInput, { FormInputLabel } from '../components/FormInput';
 import { approveWithDelayFx } from '../models/gld';
 import { useGetAccountQuery } from '../generated/graphql';
@@ -112,6 +113,7 @@ export default function NewDelayedTranfer() {
       try {
         await approveWithDelayFx({ ...values, provider: library });
         history.push('/');
+        toast.success(<DelayedTransferSuccess />);
       } catch (e: unknown) {
         if (e instanceof Error) {
           toast.error('Failed to create delayed transfer.');

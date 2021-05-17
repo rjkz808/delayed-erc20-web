@@ -10,6 +10,7 @@ declare module 'styled-components' {
       info: string;
       disabled: string;
       danger: string;
+      successTooltip: string;
     };
     fonts: {
       primary: string;
@@ -26,7 +27,8 @@ const theme: DefaultTheme = {
     success: '#9ccc65',
     info: '#42a5f5',
     disabled: '#9e9e9e',
-    danger: '#ff5252',
+    danger: '#ef5350',
+    successTooltip: '#00c767',
   },
   fonts: {
     primary: '"Inter", sans-serif',
