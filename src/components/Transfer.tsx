@@ -101,7 +101,7 @@ export default function Transfer(props: TransferProps) {
       const tx = await contract.transferFrom(from, account, props.amount);
       await tx.wait();
     } catch {
-      toast.error('Failed to collect GLD');
+      toast.error('Failed to collect GLD.');
     } finally {
       setLoading(false);
     }

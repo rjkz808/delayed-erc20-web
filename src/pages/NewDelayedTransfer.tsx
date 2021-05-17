@@ -8,13 +8,14 @@ import styled from 'styled-components';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { useToasts } from 'react-toast-notifications';
 import { DateTimePicker } from '@material-ui/pickers';
+import { toast } from 'react-toastify';
 
 import Button from '../components/Button';
 import Container from '../components/Container';
 import FormInput, { FormInputLabel } from '../components/FormInput';
 import { approveWithDelayFx } from '../models/gld';
+import { useGetAccountQuery } from '../generated/graphql';
 
 interface FormValues {
   to: string;
@@ -51,7 +52,7 @@ const schema = yup.object().shape({
   to: yup
     .string()
     .required('Recipient address is required')
-    .test('is-eth-addr', 'Not an ethereum address', (value) => {
+    .test('is-eth-addr', 'Invalid ethereum address', (value) => {
       return (
         ethers.utils.isAddress(value || '') &&
         value !== ethers.constants.AddressZero
@@ -76,10 +77,17 @@ export default function NewDelayedTranfer() {
     resolver: yupResolver(schema),
   });
 
-  const { library } = useWeb3React<Web3Provider>();
+  const { account, library } = useWeb3React<Web3Provider>();
+
+  const { data } = useGetAccountQuery({
+    variables: {
+      id: (account || '').toLowerCase(),
+    },
+    pollInterval: 5000,
+  });
+
   const history = useHistory();
   const pending = useStore(approveWithDelayFx.pending);
-  const { addToast } = useToasts();
 
   const recipientInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -91,15 +99,22 @@ export default function NewDelayedTranfer() {
   }, [register]);
 
   const submit = handleSubmit(async (values) => {
+    if (values.to.toLowerCase() === data?.account?.id) {
+      return toast.error('Please, choose a different destination.');
+    }
+
+    const amount = ethers.utils.parseEther(values.amount.toString());
+    if (amount.gt(data?.account?.balance || '0')) {
+      return toast.error('Insufficient funds.');
+    }
+
     if (library) {
       try {
         await approveWithDelayFx({ ...values, provider: library });
         history.push('/');
       } catch (e: unknown) {
         if (e instanceof Error) {
-          addToast('Failed to create delayed transfer', {
-            appearance: 'error',
-          });
+          toast.error('Failed to create delayed transfer.');
         }
       }
     }

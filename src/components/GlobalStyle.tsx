@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .Toastify__close-button {
-    margin auto 5px auto 0;
+    margin: auto 5px auto 0;
   }
 `;
 

@@ -4,7 +4,6 @@ import { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { Web3Provider } from '@ethersproject/providers';
-import { ToastProvider } from 'react-toast-notifications';
 import { useStore } from 'effector-react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -45,13 +44,11 @@ export default function App() {
       <GlobalStyle />
       <ToastContainer hideProgressBar />
       <SkeletonTheme color="#616161" highlightColor="#757575">
-        <ToastProvider>
-          <MaterialThemeProvider theme={materialTheme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              {!isLoading ? <Routes /> : <Loading />}
-            </MuiPickersUtilsProvider>
-          </MaterialThemeProvider>
-        </ToastProvider>
+        <MaterialThemeProvider theme={materialTheme}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            {!isLoading ? <Routes /> : <Loading />}
+          </MuiPickersUtilsProvider>
+        </MaterialThemeProvider>
       </SkeletonTheme>
     </ThemeProvider>
   );
