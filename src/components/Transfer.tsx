@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Skeleton from 'react-loading-skeleton';
 import Badge from './Badge';
@@ -69,6 +69,15 @@ const TransferTime = styled.div`
 
 const TransferAddress = styled.p`
   font-family: ${(props) => props.theme.fonts.mono};
+  margin-bottom: 5px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const TransferTimestamp = styled.p`
+  font-family: ${(props) => props.theme.fonts.mono};
 `;
 
 export default function Transfer(props: TransferProps) {
@@ -77,7 +86,17 @@ export default function Transfer(props: TransferProps) {
   const blockTimestamp = useStore($blockTimestamp);
   const timeLeft = useTimer(props.unlockTimestamp || 0);
 
+  const [clickDate, setClickDate] = useState(new Date(0));
+  const [unlockDate, setUnlockDate] = useState(new Date(0));
+
   const isIncoming = props.to.id === account?.toLowerCase();
+  const isLocked = blockTimestamp < props.unlockTimestamp;
+
+  useEffect(() => {
+    if (isIncoming && !isLocked && !unlockDate.getTime()) {
+      setUnlockDate(new Date());
+    }
+  }, [isIncoming, isLocked, unlockDate]);
 
   const handleContainerClick = () => {
     if (!props.loading) {
@@ -93,6 +112,10 @@ export default function Transfer(props: TransferProps) {
       return;
     }
 
+    if (!clickDate.getTime()) {
+      setClickDate(new Date());
+    }
+
     const contract = tokenContract.connect(library.getSigner());
     const from = ethers.utils.getAddress(props.from?.id);
 
@@ -106,8 +129,6 @@ export default function Transfer(props: TransferProps) {
       setLoading(false);
     }
   };
-
-  const isLocked = blockTimestamp < props.unlockTimestamp;
 
   return (
     <TransferContainer role="button" onClick={handleContainerClick}>
@@ -126,17 +147,27 @@ export default function Transfer(props: TransferProps) {
           GLD
         </TransferAmount>
       </TransferLeftPane>
-      <TransferAddress>
-        {!props.loading ? (
-          isIncoming ? (
-            ethers.utils.getAddress(props.from.id)
+      <div>
+        <TransferAddress>
+          {!props.loading ? (
+            isIncoming ? (
+              ethers.utils.getAddress(props.from.id)
+            ) : (
+              ethers.utils.getAddress(props.to.id)
+            )
           ) : (
-            ethers.utils.getAddress(props.to.id)
-          )
-        ) : (
-          <Skeleton width="200px" />
-        )}
-      </TransferAddress>
+            <Skeleton width="200px" />
+          )}
+        </TransferAddress>
+        <TransferTimestamp>
+          {unlockDate.getTime() > 0 && (
+            <span>Block time: {unlockDate.toLocaleTimeString()}</span>
+          )}{' '}
+          {clickDate.getTime() > 0 && (
+            <span>Click time: {clickDate.toLocaleTimeString()}</span>
+          )}
+        </TransferTimestamp>
+      </div>
       <TransferTime>
         {!props.loading ? (
           !timeLeft ? (
