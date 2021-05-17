@@ -5,7 +5,9 @@ This web app lets you manage your delayed GLD token transfers.
 ## How it works
 
 On the home page, you can see your wallet information (address, GLD token balance) and current delayed transfers. Incoming and outcoming transfers are split into two panels to simplify the usage. Both lists are updated in real-time. Whenever you create or receive a new delayed transfer, it will appear on your page. The square left to your GLD balance is an identicon generated from your Ethereum address.
+
 You can create a new delayed transfer by pressing a button down to your address. It will open a form you'll need to fill. After you fill out the form, a transaction will be sent to Ethereum blockchain. Transaction execution might take from 15 seconds to a few minutes. After that, the transfer will appear both on your and the recipient's page with a countdown, showing the time until your delayed transfer can be executed.
+
 When the time will run out you'll need to wait for 1 more block to be mined before finishing the transfer. At this time the withdraw button will be disabled and the transfer will go into pending status. After that, the recipient will see a _Collect_ button that sends GLD to its wallet.
 
 ## Roadmap
