@@ -13,6 +13,5 @@ approveWithDelayFx.use(async ({ to, amount, unlock, provider }) => {
 
   const contract = tokenContract.connect(provider.getSigner());
 
-  const tx = await contract.approveWithDelay(to, value, unlockTimestamp);
-  await tx.wait();
+  await contract.approveWithDelay(to, value, unlockTimestamp);
 });

@@ -42,7 +42,15 @@ const GlobalStyle = createGlobalStyle`
 
   .Toastify__toast {
     border-radius: 20px;
+    font-family: ${(props) => props.theme.fonts.primary};
+  }
+
+  .Toastify__toast--error {
     background-color: ${(props) => props.theme.colors.danger};
+  }
+
+  .Toastify__toast--success {
+    background-color: ${(props) => props.theme.colors.successTooltip};
   }
 
   .Toastify__close-button {
