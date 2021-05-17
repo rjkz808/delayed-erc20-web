@@ -9,7 +9,6 @@ interface BlockUpdate {
 export const fetchBlockFx = createEffect<{ provider: Web3Provider }, Block>();
 export const updateBlockFx = createEffect<BlockUpdate, Block>();
 
-export const blockCreated = createEvent<number>();
 export const updateBlock = createEvent<BlockUpdate>();
 
 export const $blockNumber = createStore(0);
