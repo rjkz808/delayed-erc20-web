@@ -1,10 +1,12 @@
-# GLD web interface
+# GLD Web Interface
 
 This web app lets you manage your delayed GLD token transfers.
 
 ## Live demo
 
 This app is already deployed on Vercel. You can find it here: <https://delayed-erc20-web.vercel.app>.
+
+> _Warning! To use the application you need to have a [Metamask](https://metamask.io) browser extension installed. In the [Metamask](https://metamask.io/) you need to connect to the **Rinkeby Test Network**_.
 
 ## How it works
 
@@ -54,3 +56,7 @@ Your app is ready to be deployed!
 ### `npm run codegen`
 
 Runs `graphql-codegen` CLI which generates TypeScript definitions from the projects' GraphQL schema. You don't need to run this script all the time because it's attached to `prebuild`, `prestart` and `postinstall` hooks.
+
+## License
+
+**GLD Web Interface** is released under the [MIT License](https://github.com/rjkz808/delayed-erc20-web/blob/main/LICENSE), (c) 2021 Nikolai Kornilov.
