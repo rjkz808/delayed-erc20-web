@@ -18,7 +18,7 @@ When the time will run out you'll need to wait for 1 more block to be mined befo
 
 ## Roadmap
 
-- [ ] Improve transfer creation UX
+- [x] Improve transfer creation UX
 - [x] Deploy to Vercel
 - [ ] Display timestamps of important operations (potentially store them in some sort of database later)
 - [ ] Add pending block tooltip
