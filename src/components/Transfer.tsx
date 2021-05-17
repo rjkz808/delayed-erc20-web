@@ -122,7 +122,7 @@ export default function Transfer(props: TransferProps) {
           )}
         </TransferStatusContainer>
         <TransferAmount>
-          {!props.loading ? toEther(props.amount) : <Skeleton width="100px" />}{' '}
+          {!props.loading ? toEther(props.amount) : <Skeleton width="40px" />}{' '}
           GLD
         </TransferAmount>
       </TransferLeftPane>
@@ -134,7 +134,7 @@ export default function Transfer(props: TransferProps) {
             ethers.utils.getAddress(props.to.id)
           )
         ) : (
-          <Skeleton width="400px" />
+          <Skeleton width="200px" />
         )}
       </TransferAddress>
       <TransferTime>
@@ -155,7 +155,7 @@ export default function Transfer(props: TransferProps) {
             <TransferCountdown timeLeft={timeLeft} />
           )
         ) : (
-          <Skeleton width="214px" />
+          <Skeleton width="100px" />
         )}
       </TransferTime>
     </TransferContainer>
