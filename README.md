@@ -2,6 +2,10 @@
 
 This web app lets you manage your delayed GLD token transfers.
 
+## Live demo
+
+This app is already deployed on Vercel. You can find it here: <https://delayed-erc20-web.vercel.app>.
+
 ## How it works
 
 On the home page, you can see your wallet information (address, GLD token balance) and current delayed transfers. Incoming and outcoming transfers are split into two panels to simplify the usage. Both lists are updated in real-time. Whenever you create or receive a new delayed transfer, it will appear on your page. The square left to your GLD balance is an identicon generated from your Ethereum address.
@@ -13,7 +17,7 @@ When the time will run out you'll need to wait for 1 more block to be mined befo
 ## Roadmap
 
 - [ ] Improve transfer creation UX
-- [ ] Deploy to Vercel/Netlify
+- [x] Deploy to Vercel
 - [ ] Display timestamps of important operations (potentially store them in some sort of database later)
 - [ ] Add pending block tooltip
 - [ ] Animate pending transactions to attract users' attention
